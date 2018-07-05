@@ -34,15 +34,16 @@ sudo pmm-admin list 2>&1 | grep -v '^$' | sed 's|^|  |'
 
 if [ "$1" != "" ]; then
   echo '==================== Extended info: cat /*/*VERSION inside docker container:'
-  sudo docker exec -it $(sudo docker ps -a | grep pmm-server$ | grep 'Up.*pmm-server' | sed 's|[ \t].*||') find / -name \*VERSION -exec echo {} \; -exec cat {} \; 2>&1 | grep -v '^$' | sed 's|^|  |'
+  sudo docker exec -it $(sudo docker ps -a --filter "name=^/pmm-server$" --format "{{.ID}}") find / -name \*VERSION -exec echo {} \; -exec cat {} \; 2>&1 | grep -v '^$' | sed 's|^|  |'
   echo '==================== Extended info: cat /var/log/nginx/error.log inside docker container:'
-  sudo docker exec -it $(sudo docker ps -a | grep pmm-server$ | grep 'Up.*pmm-server' | sed 's|[ \t].*||') cat /var/log/nginx/error.log 2>&1 | grep -v '^$' | sed 's|^|  |'
+  sudo docker exec -it $(sudo docker ps -a --filter "name=^/pmm-server$" --format "{{.ID}}") cat /var/log/nginx/error.log 2>&1 | grep -v '^$' | sed 's|^|  |'
   echo '==================== Extended info: cat /var/log/consul.log inside docker container:'
-  sudo docker exec -it $(sudo docker ps -a | grep pmm-server$ | grep 'Up.*pmm-server' | sed 's|[ \t].*||') cat /var/log/consul.log 2>&1 | grep -v '^$' | sed 's|^|  |'
+  sudo docker exec -it $(sudo docker ps -a --filter "name=^/pmm-server$" --format "{{.ID}}") cat /var/log/consul.log 2>&1 | grep -v '^$' | sed 's|^|  |'
   echo '==================== Extended info: cat /var/log/grafana.log inside docker container:'
-  sudo docker exec -it $(sudo docker ps -a | grep pmm-server$ | grep 'Up.*pmm-server' | sed 's|[ \t].*||') cat /var/log/grafana.log 2>&1 | grep -v '^$' | sed 's|^|  |'
+  sudo docker exec -it $(sudo docker ps -a --filter "name=^/pmm-server$" --format "{{.ID}}") cat /var/log/grafana.log 2>&1 | grep -v '^$' | sed 's|^|  |'
   echo '==================== Extended info: cat /var/log/prometheus.log inside docker container:'
-  sudo docker exec -it $(sudo docker ps -a | grep pmm-server$ | grep 'Up.*pmm-server' | sed 's|[ \t].*||') cat /var/log/prometheus.log 2>&1 | grep -v '^$' | sed 's|^|  |'
+  sudo docker exec -it $(sudo docker ps -a --filter "name=^/pmm-server$" --format "{{.ID}}") cat /var/log/prometheus.log 2>&1 | grep -v '^$' | sed 's|^|  |'
   echo '==================== Extended info: cat /var/log/qan-api.log inside docker container:'
-  sudo docker exec -it $(sudo docker ps -a | grep pmm-server$ | grep 'Up.*pmm-server' | sed 's|[ \t].*||') cat /var/log/qan-api.log 2>&1 | grep -v '^$' | sed 's|^|  |'
+  sudo docker exec -it $(sudo docker ps -a --filter "name=^/pmm-server$" --format "{{.ID}}") cat /var/log/qan-api.log 2>&1 | grep -v '^$' | sed 's|^|  |'
 fi
+
